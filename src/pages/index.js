@@ -33,6 +33,7 @@ const IndexPage = () => {
     query {
         allFile {
             nodes {
+                id
               childImageSharp {
                 gatsbyImageData
               }
@@ -56,7 +57,7 @@ const IndexPage = () => {
         <Layout pageTitle="Home Page">
             <Swiper navigation={true} modules={[Navigation]} className={slider}>
                 {images.allFile.nodes.map(node => (
-                    <SwiperSlide key={node.base}> <GatsbyImage image={getImage(node.childImageSharp.gatsbyImageData)} alt='photo' className={sliderImg} /></SwiperSlide>
+                    <SwiperSlide key={node.id}> <GatsbyImage image={getImage(node.childImageSharp.gatsbyImageData)} alt='photo' className={sliderImg} /></SwiperSlide>
                 ))}
 
                 {/* Статический вариант вывода изображений  */}
@@ -141,15 +142,16 @@ const IndexPage = () => {
                 <input type='submit' value='отправить' className={btn}></input>
             </form>
 
-            <div className=" inset-0 flex items-center mt-[50px] ml-[220px] mb-[50px]">
-                <p> Lorem ipsum – классический вариант условного бессодержательного текста, вставляемого в макет страницы. </p>
-                <button
-                    type="button"
-                    onClick={openModal}
-                    className="rounded-md px-4 py-2 text-sm font-medium text-red-500"
-                >
-                    Читать полностью ...
-                </button>
+            <div className=" inset-0 flex items-center mt-[50px] ml-[15%] mr-[15%] mb-[50px]">
+                <p> Lorem ipsum – классический вариант условного бессодержательного текста, вставляемого в макет страницы.
+                    <button
+                        type="button"
+                        onClick={openModal}
+                        className="rounded-md px-4 py-2 text-sm font-medium text-red-500"
+                    >
+                        Читать полностью ...
+                    </button>
+                </p>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
