@@ -1,23 +1,20 @@
 import * as React from 'react'
 import { useState, Fragment } from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Seo from '../components/seo'
 import { GatsbyImage, StaticImage, getImage } from 'gatsby-plugin-image'
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
-import { Link } from 'gatsby'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from "swiper";
 import 'swiper/css'
 import 'swiper/css/navigation'
-// import 'swiper/css/scrollbar';
 import "swiper/css/pagination";
-
 import {
     slider,
     carousel,
-    infoText,
     form,
     sliderImg,
     carouselImg,
@@ -30,50 +27,58 @@ import {
 } from '../components/layout.module.css'
 
 
-const IndexPage = ({ data }) => {
+const IndexPage = () => {
+
+    const images = useStaticQuery(graphql`
+    query {
+        allFile {
+            nodes {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+      }
+    `)
+
     function handleSubmit() {
         alert('Данные успешно отправлены')
     }
-
     let [isOpen, setIsOpen] = useState(false)
-
     function closeModal() {
         setIsOpen(false)
     }
-
     function openModal() {
         setIsOpen(true)
     }
 
-    // const image = getImage(data.mdx.frontmatter.hero_image)
-
-
     return (
         <Layout pageTitle="Home Page">
             <Swiper navigation={true} modules={[Navigation]} className={slider}>
-                {/* <GatsbyImage
-                        image={image}
-                        alt={data.mdx.frontmatter.hero_image_alt}/> */}
+                {images.allFile.nodes.map(node => (
+                    <SwiperSlide key={node.base}> <GatsbyImage image={getImage(node.childImageSharp.gatsbyImageData)} alt='photo' className={sliderImg} /></SwiperSlide>
+                ))}
 
-                <SwiperSlide ><StaticImage src='../images/background/slide-1.avif' alt='logo' className={sliderImg}></StaticImage> </SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/background/slide-2.avif' className={sliderImg}></StaticImage> </SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/background/slide-3.avif' className={sliderImg}></StaticImage> </SwiperSlide>
+                {/* Статический вариант вывода изображений  */}
 
+                {/* // <SwiperSlide ><StaticImage src='../images/background/slide-1.avif' alt='logo' className={sliderImg}></StaticImage> </SwiperSlide>
+                // <SwiperSlide><StaticImage src='../images/background/slide-2.avif' alt='logo' className={sliderImg}></StaticImage> </SwiperSlide>
+                // <SwiperSlide><StaticImage src='../images/background/slide-3.avif' alt='logo' className={sliderImg}></StaticImage> </SwiperSlide> */}
             </Swiper>
 
             <Swiper className={carousel} navigation={true} modules={[Navigation, Pagination]} slidesPerView={3} pagination={true}>
 
-                <SwiperSlide><StaticImage src='../images/BMW.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/Lexus.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/Porsche.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/WV.jpg' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/Youtube.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/Youtube-logo.jpg' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
-                <SwiperSlide><StaticImage src='../images/Instagram.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/BMW.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/Lexus.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/Porsche.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/WV.jpg' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/Youtube.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/Youtube-logo.jpg' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
+                <SwiperSlide><StaticImage src='../images/carousel/Instagram.png' alt='logo' className={carouselImg}></StaticImage></SwiperSlide>
             </Swiper>
 
             <div className="w-full px-4 pt-16">
-                <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
+                <div className="mx-auto w-full max-w-[600px] rounded-2xl bg-white p-2">
                     <Disclosure>
                         {({ open }) => (
                             <>
@@ -110,7 +115,6 @@ const IndexPage = ({ data }) => {
                 </div>
             </div>
 
-
             <form className={form} onSubmit={handleSubmit}>
                 <div className={formItem}>
                     <label className={labelInput}>*Имя:</label>
@@ -137,8 +141,7 @@ const IndexPage = ({ data }) => {
                 <input type='submit' value='отправить' className={btn}></input>
             </form>
 
-
-            <div className=" inset-0 flex items-center mt-[50px] ml-[50px] mb-[50px]">
+            <div className=" inset-0 flex items-center mt-[50px] ml-[220px] mb-[50px]">
                 <p> Lorem ipsum – классический вариант условного бессодержательного текста, вставляемого в макет страницы. </p>
                 <button
                     type="button"
@@ -202,27 +205,9 @@ const IndexPage = ({ data }) => {
                     </div>
                 </Dialog>
             </Transition>
-
-        </Layout>
+        </Layout >
     )
 }
-// export const query = graphql`
-//   query($id: String) {
-//     mdx(id: {eq: $id}) {
-//       frontmatter {
-//         title
-//         hero_image_alt
-//         hero_image_credit_link
-//         hero_image_credit_text
-//         hero_image {
-//           childImageSharp {
-//             gatsbyImageData
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
 
 export const Head = () => <Seo title='Home Page' />
 

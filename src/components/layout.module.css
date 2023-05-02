@@ -1,12 +1,10 @@
-
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
  .container {
-    margin: auto;
+    /* margin: auto; */
     height: 100vh;
     font-family: sans-serif;
   }
@@ -16,10 +14,7 @@
     padding-bottom: 20px;
     padding-top: 20px;
   }
-  .heading {
-    color: rebeccapurple;
-    text-align: center;
-  }
+  
   .header-links {
     display: flex;
     justify-content: space-between;
@@ -59,10 +54,8 @@
     padding-left: 50px;
     margin-right: 20px;
     }
-  .date-now {
-    color: black;
-        
-  }
+  
+  
   .footer {
     display: flex;
     align-items: center;
@@ -95,7 +88,7 @@
   }
   .form {
     height: 250px;
-    width: 50%;
+    max-width: 580px;
     border: 1px solid blue;
     border-radius: 5px;
     margin: auto;
@@ -131,9 +124,6 @@
   outline: none;
   border-radius: 3px;
 }
-/* .infoText {
-  margin-left: 50px;
-  margin-bottom: 50px;
-} */
+
 
   

@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 import {
     container,
     header,
-    heading,
     headerLinks,
     navLinks,
     navLinkItem,
@@ -15,7 +14,6 @@ import {
     content,
     footer,
     text,
-    dateNow,
 } from './layout.module.css'
 
 const Layout = ({ pageTitle, children }) => {
@@ -56,7 +54,7 @@ const Layout = ({ pageTitle, children }) => {
                 <div className={siteTitle}>{data.site.siteMetadata.title}</div>
                 <nav className={headerLinks}>
                     <Link to="/">
-                        <StaticImage className={logoMain} src='../images/Youtube-logo.jpg' alt='logo' />
+                        <StaticImage className={logoMain} src='../images/logo.webp' alt='logo' />
                     </Link>
                     <div>
                         <ul className={navLinks}>
@@ -75,12 +73,11 @@ const Layout = ({ pageTitle, children }) => {
             </header>
 
             <main className={content}>
-                <h1 className={heading}></h1>
                 {children}
             </main>
             <footer className={footer}>
                 <h3 className={text}> *Усі права власності захищені </h3>
-                <span className={dateNow}>{date}</span>
+                <span className='text-black-500'>{date}</span>
             </footer>
 
         </div>
