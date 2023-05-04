@@ -1,20 +1,17 @@
 import * as React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import { useState, useEffect } from 'react'
 import {
-    container,
-    header,
-    headerLinks,
-    navLinks,
-    navLinkItem,
-    navLinkText,
-    siteTitle,
     logoMain,
     content,
-    footer,
-    text,
+
 } from './layout.module.css'
+
+import Container from 'react-bootstrap/Container';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const Layout = ({ pageTitle, children }) => {
     const data = useStaticQuery(graphql`
@@ -49,35 +46,31 @@ const Layout = ({ pageTitle, children }) => {
 
 
     return (
-        <div className={container}>
-            <header className={header}>
-                <div className={siteTitle}>{data.site.siteMetadata.title}</div>
-                <nav className={headerLinks}>
-                    <Link to="/">
-                        <StaticImage className={logoMain} src='../images/logo.webp' alt='logo' />
-                    </Link>
-                    <div>
-                        <ul className={navLinks}>
-                            <li className={navLinkItem}>
-                                <Link to="/" className={navLinkText}>Home </Link>
-                            </li>
-                            <li className={navLinkItem}>
-                                <Link to="#" className={navLinkText}>About</Link>
-                            </li>
-                            <li className={navLinkItem}>
-                                <Link to="#" className={navLinkText}>Blog</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+        <div>
+            <header className='bg-light pt-4 border-bottom border-danger' >
+                <div className='text-center fs-1 fw-bold text-primary mb-5'>{data.site.siteMetadata.title}</div>
+
+                <Navbar bg="primary" variant="dark" >
+                    <Container>
+                        <Navbar.Brand href="#home">
+                            <StaticImage className={logoMain} src='../images/logo.webp' alt='logo' />
+                        </Navbar.Brand>
+                        <Nav className="ml-auto">
+                            <Nav.Link href="#">Home</Nav.Link>
+                            <Nav.Link href="#">About</Nav.Link>
+                            <Nav.Link href="#">Blog</Nav.Link>
+                        </Nav>
+                    </Container>
+                </Navbar>
+
             </header>
 
-            <main className={content}>
+            <main>
                 {children}
             </main>
-            <footer className={footer}>
-                <h3 className={text}> *Усі права власності захищені </h3>
-                <span className='text-black-500'>{date}</span>
+            <footer className=' bg-light border-top border-danger d-flex pt-3 pb-3 ps-5 fst-italic'>
+                <h3 className='fs-5 text-primary'> *Усі права власності захищені <span className='text-dark ms-4'>{date}</span></h3>
+
             </footer>
 
         </div>
