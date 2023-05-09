@@ -9,9 +9,13 @@ import { Navigation, Pagination } from "swiper";
 import 'swiper/css'
 import 'swiper/css/navigation'
 import "swiper/css/pagination";
+
+import '../components/style.css'
 import {
     carousel,
     carouselImg,
+    // swiperButtonNextSize,
+    // swiperButtonPrevSize
 
 } from '../components/layout.module.css'
 
@@ -61,6 +65,7 @@ const IndexPage = () => {
                         </Carousel.Item>
                     ))}
                 </Carousel>
+
 
                 <Swiper className={carousel} navigation={true} modules={[Navigation, Pagination]} slidesPerView={3} pagination={true}>
 
